@@ -19,7 +19,6 @@ import { MoviePopulate, MovieSideBarType } from "@/types/movie";
 import { AppBar, DrawerHeader, Main, drawerWidth } from "@/custom/Mui/drawer";
 import { MovieList } from "@/components/movie/movieList";
 import { useRouter } from "next/router";
-import { MovieSearch } from "@/components/movie/movieSearch";
 import Link from "next/link";
 import MovieDetailComponent from "@/components/movie/movieDetail";
 import { MovieListDiff } from "@/components/movie/movieListDiff";
@@ -28,6 +27,7 @@ import Login from "@/components/login/login";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
   removeAuth,
+  saveUser,
   selectTokens,
   selectUserCurrent,
 } from "@/redux/auth/authReducer";
@@ -37,11 +37,11 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import User from "@/components/user/user";
 import { UserCurrentPopulate } from "@/types/user";
+import Chat from "@/components/chat/chat";
 
 export const SidebarHome = ({ movies, movie, id, user }: MovieSideBarType) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const tokens = useAppSelector(selectTokens);
   const userCurrent = useAppSelector(selectUserCurrent);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [openRegister, setOpenRegister] = React.useState(false);
@@ -126,21 +126,16 @@ export const SidebarHome = ({ movies, movie, id, user }: MovieSideBarType) => {
           />
           {userCurrent ? (
             <div className="flex gap-5 items-center">
-              <Link href={`/user/${userCurrent?._id}`} className="flex gap-5 items-center">
+              <Link
+                href={`/user/${userCurrent?._id}`}
+                className="flex gap-5 items-center"
+              >
                 {userCurrent.image === "" ? (
                   <Avatar></Avatar>
                 ) : (
-                  <Avatar
-                    src={
-                      process.env.HTTP_SERVER +
-                      "/users/" +
-                      userCurrent._id +
-                      "/" +
-                      userCurrent.image
-                    }
-                  ></Avatar>
+                  <Avatar src={userCurrent.image}></Avatar>
                 )}
-              <p>{userCurrent.name}</p>
+                <p>{userCurrent.name}</p>
               </Link>
 
               <button
@@ -225,16 +220,17 @@ export const SidebarHome = ({ movies, movie, id, user }: MovieSideBarType) => {
           openRegister={openRegister}
           setOpenRegisterChild={() => setOpenRegister(false)}
         ></Register>
-        {router.asPath === "/" ? (
+        {router.asPath === "/" || router.asPath.includes("search") ? (
           <MovieList movies={movies}></MovieList>
-        ) : router.asPath.includes("search") ? (
-          <MovieSearch movies={movies}></MovieSearch>
         ) : router.asPath.includes("detail") ? (
           <>
             <div className="flex gap-10">
-              <MovieDetailComponent
-                movie={movie as MoviePopulate}
-              ></MovieDetailComponent>
+              <div>
+                <MovieDetailComponent
+                  movie={movie as MoviePopulate}
+                ></MovieDetailComponent>
+                <Chat></Chat>
+              </div>
               <MovieListDiff id={id}></MovieListDiff>
             </div>
           </>

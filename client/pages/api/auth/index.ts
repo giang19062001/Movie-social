@@ -47,14 +47,30 @@ export default async function handler(
           });
       }
       break;
+    case "PUT":
+      await axiosCustom
+        .put(
+          `/user/${body._id}`,
+          { image: body.image },
+          {
+            headers: {
+              Cookie: req.headers.cookie,
+            },
+          }
+        )
+        .then((response) => {
+          res.status(200).json(response.data);
+        });
+      break;
     case "GET":
+      console.log(req.headers.cookie);
       await axiosCustom
         .get(`/auth/logout`, {
-          headers: {  Cookie: req.headers.cookie },
+          headers: { Cookie: req.headers.cookie },
         })
         .then((response) => {
-          deleteCookie('accessToken', { req, res });
-          deleteCookie('refreshToken', { req, res });
+          deleteCookie("accessToken", { req, res });
+          deleteCookie("refreshToken", { req, res });
 
           res.status(200).json(response.data);
         })

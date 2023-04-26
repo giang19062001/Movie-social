@@ -10,7 +10,6 @@ import { useAppDispatch } from "@/redux/hook";
 import { saveAuth } from "@/redux/auth/authReducer";
 import useSWRMutation from "swr/mutation";
 import { toast } from "react-toastify";
-import axiosCustom from "@/http/axios";
 import axios from "axios";
 
 const initialState: LoginForm = {

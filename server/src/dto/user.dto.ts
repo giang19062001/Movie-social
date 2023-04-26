@@ -19,11 +19,7 @@ export class CreateUserDto {
 }
 
 export class UpdateUserDto {
-  @ApiProperty({ required: true })
-  @IsString()
-  name: string;
-
-  @ApiProperty({ type: 'string', format: 'binary', required: false })
+  @ApiProperty({ type: 'string', format: 'binary', required: true })
   image: string;
 }
 

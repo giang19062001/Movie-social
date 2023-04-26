@@ -23,7 +23,7 @@ const MovieDetailComponent = ({ movie }: MovieItemType) => {
              src={
               movie?.user?.image === "" || movie.user?.image === undefined
               ? defaultImage
-                : `${process.env.HTTP_SERVER}/users/${movie.user?._id}/${movie.user?.image}`
+                : `${movie.user?.image}`
             }
             width={100}
             height={100}

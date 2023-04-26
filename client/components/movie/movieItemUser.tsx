@@ -8,7 +8,7 @@ const MovieItemUser = ({ movie }: MovieItemType) => {
     <Link href={`/movie/detail/${movie._id}`}>
     <div className="h-100">
       <Image
-        src={`${process.env.HTTP_SERVER}/movies/${movie.title}/${movie.image}`}
+        src={`${movie.image}`}
         width={500}
         height={200}
         alt={movie.title}

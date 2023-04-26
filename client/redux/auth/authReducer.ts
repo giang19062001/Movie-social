@@ -31,6 +31,7 @@ export const authSlice = createSlice({
       state.tokens = action.payload.tokens;
       state.user = action.payload.user;
     },
+
     removeAuth: (state) => {
       state.tokens = null
       state.user = null

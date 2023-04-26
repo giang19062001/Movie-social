@@ -20,7 +20,8 @@ export class CreateMovieDto {
   @IsNotEmpty()
   user: string;
 
-  @ApiProperty({ type: 'string', format: 'binary' })
+  @ApiProperty()
+  @IsNotEmpty()
   image: string;
 }
 

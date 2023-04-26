@@ -20,6 +20,7 @@ import { Role } from 'src/schema/user.schema';
 import { JwtPayload } from 'src/types/auth.type';
 import { MessageError } from 'src/helper/messageError.enum';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { MessageSuccess } from 'src/helper/messageSuccess.enum';
 
 @ApiTags('user')
 @ApiCookieAuth()
@@ -40,32 +41,34 @@ export class UserController {
 
   @Put(':id')
   @UseGuards(AccessTokenGuard)
-  @ApiConsumes('multipart/form-data')
+  // @ApiConsumes('multipart/form-data')
   @ApiBody({
     type: UpdateUserDto,
   })
-  @UseInterceptors(FileInterceptor('image'))
+  // @UseInterceptors(FileInterceptor('image'))
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
     @Req() req: Request,
-    @UploadedFile() file: Express.Multer.File,
+    // @UploadedFile() file: Express.Multer.File,
   ) {
     const user: JwtPayload = req['user'];
     if (user.sub !== id) {
       throw new ForbiddenException(MessageError.NotEqualAccessToken);
     }
-    const userById = await this.findById(id);
-    if (!file) {
-      return await this.service.update(id, {
-        ...updateUserDto,
-        image: userById.image,
-      });
-    } else {
-      return await this.service.update(id, {
-        ...updateUserDto,
-        image: file.filename,
-      });
-    }
+    // const userById = await this.findById(id);
+    // if (!file) {
+    //   return await this.service.update(id, {
+    //     ...updateUserDto,
+    //     image: userById.image,
+    //   });
+    // } else {
+    //   return await this.service.update(id, {
+    //     ...updateUserDto,
+    //     image: file.filename,
+    //   });
+    // }
+    await this.service.update(id, updateUserDto);
+    return MessageSuccess.ChangAvatar;
   }
 }

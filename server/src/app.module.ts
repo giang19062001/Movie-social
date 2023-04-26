@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppMiddleware } from './app.middleware';
+import { ChatGateway } from './chat/chat.gateway';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { AppMiddleware } from './app.middleware';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ChatGateway],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
 }) => {
   const id = params?.idUser?.toString();
-
+  console.log('call');
   const response = await axiosCustom.get(`/user/${id}`, {
     headers: {
       Cookie: req.headers.cookie,

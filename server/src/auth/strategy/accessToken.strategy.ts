@@ -25,7 +25,7 @@ export class AccessTokenStrategy extends PassportStrategy(
 
   private static extractJWT(req: Request): string | null {
     if (req.cookies && 'accessToken' in req.cookies) {
-      console.log('req.cookies', req.cookies);
+      console.log('req.cookies', new Date(), req.cookies);
       return req.cookies.accessToken;
     }
     return null;
