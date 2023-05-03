@@ -28,12 +28,12 @@ const Search = () => {
         <CircularProgress color="inherit" />
       </Backdrop>
     );
-  if (data?.length === 0)
-    return (
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-500 text-2xl">
-        {messageError.Search}
-      </div>
-    );
+  // if (data?.length === 0)
+  //   return (
+  //     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-red-500 text-2xl">
+  //       {messageError.Search}
+  //     </div>
+  //   );
   return (
     <>
       <Head>

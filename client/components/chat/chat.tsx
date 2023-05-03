@@ -36,7 +36,6 @@ const Chat = () => {
   const user = useAppSelector(selectUserCurrent);
   const [socket, setSocket] = useState<Socket>();
   const [value, setValue] = useState<string>("");
-  const [room, setRoom] = useState<string>();
   const [messages, setMessage] = useState<data[]>([]);
   useEffect(() => {
     const newSocket = io("http://localhost:8001");
@@ -68,7 +67,7 @@ const Chat = () => {
   }, [messageListener]);
 
   return (
-    <div className="h-100 my-4 ml-0 sm:ml-24 md:ml-24 lg:ml-24 xl:ml-24 flex flex-col gap-2 mt-12">
+    <div className="h-100 my-4 px-8 flex flex-col gap-2 mt-12">
       {user ? (
         <>
           <CustomTextField
@@ -97,7 +96,7 @@ const Chat = () => {
             ))}
           </div>
         </>
-      ) : null}
+      ) : <p className="text-red-500 font-bold  text-xl">Vui lòng đăng nhập để bình luận</p>}
     </div>
   );
 };

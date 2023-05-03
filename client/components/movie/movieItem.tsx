@@ -7,23 +7,26 @@ import { useRouter } from "next/router";
 
 const MovieItem = ({ movie }: MovieItemType) => {
   const router = useRouter();
-  console.log(router);
   return (
     <Link href={`/movie/detail/${movie._id}`}>
-      <div
-        className={
-          router.asPath.includes("search")
-            ? "h-100 ml-0 sm:ml-12 md:ml-12 lg:ml-12 xl:ml-12 flex items-center gap-10"
-            : "h-100"
-        }
-      >
-        <Image
+      <div className={"h-100 my-10"}>
+        {  router.asPath.includes("detail")
+          ?  <Image
           src={`${movie.image}`}
-          width={500}
+          width={1000}
           height={200}
           alt={movie.title}
           className="rounded-lg"
         />
+          :  <Image
+          src={`${movie.image}`}
+          width={400}
+          height={200}
+          alt={movie.title}
+          className="rounded-lg"
+        />
+      }
+       
         <div className="my-5 flex gap-5">
           {!router.asPath.includes("user") ? (
             <div>

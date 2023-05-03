@@ -15,7 +15,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { MoviePopulate, MovieSideBarType } from "@/types/movie";
+import { MovieListType, MoviePopulate, MovieSideBarType } from "@/types/movie";
 import { AppBar, DrawerHeader, Main, drawerWidth } from "@/custom/Mui/drawer";
 import { MovieList } from "@/components/movie/movieList";
 import { useRouter } from "next/router";
@@ -24,44 +24,26 @@ import MovieDetailComponent from "@/components/movie/movieDetail";
 import { MovieListDiff } from "@/components/movie/movieListDiff";
 import Register from "@/components/register/register";
 import Login from "@/components/login/login";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import {  useAppSelector } from "@/redux/hook";
 import {
-  removeAuth,
-  saveUser,
-  selectTokens,
   selectUserCurrent,
 } from "@/redux/auth/authReducer";
 import { Avatar } from "@mui/material";
-import useSWR from "swr";
-import { toast } from "react-toastify";
-import axios from "axios";
 import User from "@/components/user/user";
 import { UserCurrentPopulate } from "@/types/user";
 import Chat from "@/components/chat/chat";
 
 export const SidebarHome = ({ movies, movie, id, user }: MovieSideBarType) => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const userCurrent = useAppSelector(selectUserCurrent);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [openRegister, setOpenRegister] = React.useState(false);
   const [openLogin, setOpenLogin] = React.useState(false);
-  const [logout, setLogout] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const sidebarText = userCurrent
     ? ["Trang chủ", "Kênh của bạn"]
     : ["Trang chủ"];
-  const fetcher = (url: string) =>
-    axios
-      .get(url)
-      .then((res) => {
-        setLogout(false),
-          dispatch(removeAuth()),
-          router.push("/"),
-          toast.success(res.data);
-      })
-      .catch(() => setLogout(false));
-  const { data } = useSWR(() => (logout ? "/api/auth" : null), fetcher);
+    console.log(userCurrent?.image);
 
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
@@ -75,9 +57,6 @@ export const SidebarHome = ({ movies, movie, id, user }: MovieSideBarType) => {
     router.push("/movie/search/search?title=" + title);
   };
 
-  const hanldeLogout = () => {
-    setLogout(true);
-  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -91,7 +70,7 @@ export const SidebarHome = ({ movies, movie, id, user }: MovieSideBarType) => {
           borderBottom: "2px solid grey",
         }}
       >
-        <Toolbar className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row gap-5 justify-between mx-5">
+        <Toolbar className="flex flex-row gap-5 justify-between mx-5">
           <div className="flex items-center">
             <IconButton
               onClick={handleDrawerOpen}
@@ -105,7 +84,7 @@ export const SidebarHome = ({ movies, movie, id, user }: MovieSideBarType) => {
             </IconButton>
             <Link href="/">
               {" "}
-              <Typography variant="h5" noWrap component="div">
+              <Typography variant="h5" noWrap component="div" sx={{display: {xs:'none',sm:'block',md:"block",lg:'block',xl:'block'}}}>
                 <b>
                   YouTube <sup>VN</sup>
                 </b>
@@ -138,13 +117,7 @@ export const SidebarHome = ({ movies, movie, id, user }: MovieSideBarType) => {
                 <p>{userCurrent.name}</p>
               </Link>
 
-              <button
-                type="button"
-                className="font-bold border-2 border-red-500 rounded-lg p-2"
-                onClick={() => hanldeLogout()}
-              >
-                Đăng xuất
-              </button>
+           
             </div>
           ) : (
             <div className="flex gap-2">
@@ -224,14 +197,16 @@ export const SidebarHome = ({ movies, movie, id, user }: MovieSideBarType) => {
           <MovieList movies={movies}></MovieList>
         ) : router.asPath.includes("detail") ? (
           <>
-            <div className="flex gap-10">
-              <div>
+            <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row p-6">
+            <div>
                 <MovieDetailComponent
                   movie={movie as MoviePopulate}
                 ></MovieDetailComponent>
                 <Chat></Chat>
               </div>
-              <MovieListDiff id={id}></MovieListDiff>
+              <div className="flex justify-center">
+                <MovieListDiff movies={movies}></MovieListDiff>
+              </div>
             </div>
           </>
         ) : router.asPath.includes("user") ? (

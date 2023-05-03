@@ -14,3 +14,12 @@ export enum messageFieldRegister {
   NamePattern = "Name không được để trống",
   PasswordRequired = "Password không được để trống",
 }
+
+
+export enum messageFieldAddMovie {
+  TitleRequired = "Title không được để trống",
+  LinkRequired = "Link không được để trống",
+  ImageRequired = "Image không được để trống",
+
+}
+

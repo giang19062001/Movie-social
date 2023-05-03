@@ -1,16 +1,15 @@
 import { MovieListType } from "@/types/movie";
 import React from "react";
 import MovieItem from "./movieItem";
-import { useAppSelector } from "@/redux/hook";
-import { selectMovies } from "@/redux/movie/movieReducer";
+import { useRouter } from "next/router";
 
-type id = {
-  id?: string;
-};
-export const MovieListDiff = ({ id }: id) => {
-  const movies = useAppSelector(selectMovies);
+
+
+export const MovieListDiff = ({ movies }: MovieListType) => {
+  const router = useRouter()
+  const id = router.query?.idMovie
   return (
-    <div className="grid grid-cols-1 gap-4 my-10">
+    <div className="grid grid-cols-1 gap-4 my-10 ">
       {movies?.map((movie) =>
         movie._id !== id ? (
           <div key={movie._id}>

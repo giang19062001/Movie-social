@@ -29,7 +29,7 @@ const AddMovie = () => {
   const user = useAppSelector(selectUserCurrent);
   const [cates, setCates] = useState<[CategoryAll]>([initialCates]);
   const [loading, setLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageVideo, setSelectedImageVideo] = useState(null);
   const [formData, setFormData] = useState<
     Omit<Movie, "_id" | "createdAt" | "updatedAt"> | Movie
   >(initalState);
@@ -45,34 +45,35 @@ const AddMovie = () => {
         console.log(err);
       });
   }, []);
-  const imageChange = (event: any) => {
+  const imageChangeVideo = (event: any) => {
     if (event.target.files && event.target.files.length > 0) {
-      setSelectedImage(event.target.files[0]);
+      setSelectedImageVideo(event.target.files[0]);
       setFormData((pre) => ({ ...pre, image: event.target.files[0] }));
     }
   };
-  const removeSelectedImage = () => {
-    setSelectedImage(null);
+  const removeSelectedImageVideo = () => {
+    setSelectedImageVideo(null);
     setFormData((pre) => ({ ...pre, image: "" }));
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true);
-    const storageRef = ref(
-      storage,
-      `/videos/${formData.image.name + uuidv4()}`
-    );
-    await uploadBytesResumable(storageRef, formData.image).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then(async (video) => {
-        const body = { ...formData, image: video, user: user?._id };
-        await axios.post(`/api/movie`, body).then((response) => {
-          setLoading(false);
-          toast.success(response.data);
-        });
-      });
-    });
+    // setLoading(true);
+    // const storageRef = ref(
+    //   storage,
+    //   `/videos/${formData.image.name + uuidv4()}`
+    // );
+    // await uploadBytesResumable(storageRef, formData.image).then((snapshot) => {
+    //   getDownloadURL(snapshot.ref).then(async (video) => {
+    //     const body = { ...formData, image: video, user: user?._id };
+    //     await axios.post(`/api/movie`, body).then((response) => {
+    //       setLoading(false);
+    //       toast.success(response.data);
+    //     });
+    //   });
+    // });
   };
 
+  console.log("selectedImageVideo", selectedImageVideo);
   return (
     <Container maxWidth="sm">
       <Backdrop
@@ -92,6 +93,7 @@ const AddMovie = () => {
             type="text"
             className="border-2  rounded-full py-2 px-3  focus:outline-none focus:border-sky-500  w-full text-slate-900"
             placeholder="Tiêu đề"
+            required
             onChange={(event) =>
               setFormData((prev) => ({ ...prev, title: event.target.value }))
             }
@@ -102,8 +104,9 @@ const AddMovie = () => {
           <label className="w-28">Link</label>
           <input
             type="text"
+            required
             className="border-2  rounded-full py-2 px-3  focus:outline-none focus:border-sky-500  w-full  text-slate-900"
-            placeholder="Link"
+            placeholder="https://youtube, facebook, google"
             onChange={(event) =>
               setFormData((prev) => ({ ...prev, link: event.target.value }))
             }
@@ -127,30 +130,24 @@ const AddMovie = () => {
             ))}
           </select>
         </div>
-        <div className="flex items-center gap-5">
-          <label
-            htmlFor="image"
-            className="relative cursor-pointer rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900"
-          >
-            Ảnh video
-          </label>
+        <div className=" gap-2">
           <input
             type="file"
             id="image"
             name="image"
-            style={{ display: "none" }}
-            onChange={(event) => imageChange(event)}
+            required
+            onChange={(event) => imageChangeVideo(event)}
           ></input>
-          {selectedImage ? (
+          {selectedImageVideo ? (
             <div className="relative my-6">
               <img
-                src={URL.createObjectURL(selectedImage)}
+                src={URL.createObjectURL(selectedImageVideo)}
                 alt=""
                 loading="lazy"
               />
               <button
                 className="absolute top-4 right-4 rounded-full bg-red-500 px-4 py-2 text-slate-50"
-                onClick={removeSelectedImage}
+                onClick={removeSelectedImageVideo}
               >
                 X
               </button>

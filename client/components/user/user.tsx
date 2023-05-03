@@ -23,6 +23,7 @@ const User = ({ user }: UserCurrentPopulateInProp) => {
           image: user.image,
         }}
       ></UserDetail>
+      
       <hr className="mt-12" />
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -47,6 +48,7 @@ const User = ({ user }: UserCurrentPopulateInProp) => {
         <TabPanel value={value} index={1}>
           <AddMovie></AddMovie>
         </TabPanel>
+        
       </Box>
     </div>
   );

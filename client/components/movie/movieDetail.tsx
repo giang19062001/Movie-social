@@ -2,14 +2,12 @@ import { Movie, MovieItemType } from "@/types/movie";
 import Image from "next/image";
 import React from "react";
 import defaultImage from "@/assets/images/default-avatar.png";
-import Link from "next/link";
 import ReactPlayer from "react-player";
 
 
 const MovieDetailComponent = ({ movie }: MovieItemType) => {
   return (
-    <Link href={`/detailMovie/${movie._id}`}>
-    <div className="h-100 my-4 ml-0 sm:ml-24 md:ml-24 lg:ml-24 xl:ml-24">
+    <div className="h-100 my-12 px-8">
             <ReactPlayer
             url={movie?.link}
             width="1000px"
@@ -38,7 +36,6 @@ const MovieDetailComponent = ({ movie }: MovieItemType) => {
         </div>
       </div>
     </div>
-    </Link>
   );
 };
 export default MovieDetailComponent;

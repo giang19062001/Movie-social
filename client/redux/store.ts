@@ -1,11 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import movieReducer from "./movie/movieReducer";
 import authReducer from "./auth/authReducer";
 
 export function makeStore() {
   return configureStore({
     reducer: {
-      movie: movieReducer,
       auth: authReducer,
     },
   });
