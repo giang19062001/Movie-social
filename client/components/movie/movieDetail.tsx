@@ -30,9 +30,9 @@ const MovieDetailComponent = ({ movie }: MovieItemType) => {
           />
         </div>
         <div>
-          <b className="">{movie.title}</b>
-          <p>{movie?.user.name}</p>
-          <p>{new Date(movie.createdAt).toLocaleString()}</p>
+          <b className="">{movie?.title}</b>
+          <p>{movie?.user?.name}</p>
+          <p>{new Date(movie?.createdAt).toLocaleString()}</p>
         </div>
       </div>
     </div>

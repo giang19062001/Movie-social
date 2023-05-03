@@ -8,21 +8,21 @@ import { useRouter } from "next/router";
 const MovieItem = ({ movie }: MovieItemType) => {
   const router = useRouter();
   return (
-    <Link href={`/movie/detail/${movie._id}`}>
+    <Link href={`/movie/detail/${movie?._id}`}>
       <div className={"h-100 my-10"}>
         {  router.asPath.includes("detail")
           ?  <Image
-          src={`${movie.image}`}
+          src={`${movie?.image}`}
           width={1000}
           height={200}
-          alt={movie.title}
+          alt={movie?.title}
           className="rounded-lg"
         />
           :  <Image
-          src={`${movie.image}`}
+          src={`${movie?.image}`}
           width={400}
           height={200}
-          alt={movie.title}
+          alt={movie?.title}
           className="rounded-lg"
         />
       }
@@ -32,22 +32,22 @@ const MovieItem = ({ movie }: MovieItemType) => {
             <div>
               <Image
                 src={
-                  movie?.user?.image === "" || movie.user?.image === undefined
+                  movie?.user?.image === "" || movie?.user?.image === undefined
                     ? defaultImage
-                    : `${movie.user?.image}`
+                    : `${movie?.user?.image}`
                 }
                 width={50}
                 height={50}
-                alt={movie.user?.name}
+                alt={movie?.user?.name}
                 className="rounded-full"
               />
             </div>
           ) : null}
 
           <div>
-            <b className="">{movie.title}</b>
-            <p>{movie.user.name}</p>
-            <p>{new Date(movie.createdAt).toLocaleString()}</p>
+            <b className="">{movie?.title}</b>
+            <p>{movie?.user?.name}</p>
+            <p>{new Date(movie?.createdAt).toLocaleString()}</p>
           </div>
         </div>
       </div>

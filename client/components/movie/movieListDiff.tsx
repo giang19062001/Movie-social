@@ -11,8 +11,8 @@ export const MovieListDiff = ({ movies }: MovieListType) => {
   return (
     <div className="grid grid-cols-1 gap-4 my-10 ">
       {movies?.map((movie) =>
-        movie._id !== id ? (
-          <div key={movie._id}>
+        movie?._id !== id ? (
+          <div key={movie?._id}>
             <MovieItem movie={movie} />
           </div>
         ) : null
