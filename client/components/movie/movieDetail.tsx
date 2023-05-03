@@ -19,19 +19,19 @@ const MovieDetailComponent = ({ movie }: MovieItemType) => {
         <div>
           <Image
              src={
-              movie?.user?.image === "" || movie.user?.image === undefined
+              movie?.user?.image === "" || movie?.user?.image === undefined
               ? defaultImage
-                : `${movie.user?.image}`
+                : `${movie?.user?.image}`
             }
             width={100}
             height={100}
-            alt={movie.user?.name}
+            alt={movie?.user?.name}
             className="rounded-full  border border-gray-100"
           />
         </div>
         <div>
           <b className="">{movie.title}</b>
-          <p>{movie.user.name}</p>
+          <p>{movie?.user.name}</p>
           <p>{new Date(movie.createdAt).toLocaleString()}</p>
         </div>
       </div>
