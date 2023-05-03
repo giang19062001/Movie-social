@@ -1,4 +1,4 @@
-import { Movie } from "./movie";
+import { Movie, MoviePopulate } from "./movie";
 
 export interface User {
   _id: string;
@@ -23,7 +23,7 @@ export interface UserCurrentPopulate {
   name: string;
   email: string;
   password: string;
-  movie: Movie[];
+  movie: MoviePopulate[];
   roles: string[];
   auth: string;
   image: string;
