@@ -31,8 +31,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 type propDetail = {
-  movie: MovieItemType;
-  movies: MovieListType;
+  movie: MoviePopulate;
+  movies: MoviePopulate[];
 };
 const MovieDetail = ({ movie, movies }: propDetail) => {
   const router = useRouter();

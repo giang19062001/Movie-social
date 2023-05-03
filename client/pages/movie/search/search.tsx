@@ -1,6 +1,6 @@
 import { SidebarHome } from "@/components/sidebar/movie/sidebarHome";
 import { messageError } from "@/helper/message";
-import { Movie } from "@/types/movie";
+import { Movie, MovieListType, MoviePopulate } from "@/types/movie";
 import { Backdrop, CircularProgress } from "@mui/material";
 import axios from "axios";
 import Head from "next/head";
@@ -41,7 +41,7 @@ const Search = () => {
       </Head>
 
       <SidebarHome
-        movies={data as Movie[]}
+        movies={data as unknown as MoviePopulate[]}
         id={""}
         movie={undefined}      ></SidebarHome>
     </>
