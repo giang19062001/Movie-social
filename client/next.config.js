@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    HTTP_SERVER: "https://movie-social-production.up.railway.app",
+    HTTP_SERVER: "https://movie-social-production.up.railway.app"
+    // HTTP_SERVER: "http://localhost:8000",
   },
   images: {
     remotePatterns: [
