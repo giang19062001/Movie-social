@@ -36,7 +36,7 @@ type propDetail = {
 };
 const MovieDetail = ({ movie, movies }: propDetail) => {
   const router = useRouter();
-  const id = router.query.idMovie!.toString();
+  const id = router.query.idMovie?.toString();
   const title = "Movie Id: " + id;
 
   return (
@@ -44,7 +44,7 @@ const MovieDetail = ({ movie, movies }: propDetail) => {
       <Head>
         <title key="title">{`${title}`}</title>
       </Head>
-      <SidebarHome movies={movies} movie={movie} id={id}></SidebarHome>
+      <SidebarHome movies={movies} movie={movie} id={id as string}></SidebarHome>
     </>
   );
 };
