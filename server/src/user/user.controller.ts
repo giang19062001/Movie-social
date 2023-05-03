@@ -8,8 +8,6 @@ import {
   Put,
   UseGuards,
   ForbiddenException,
-  UseInterceptors,
-  UploadedFile,
 } from '@nestjs/common';
 import { ApiCookieAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
@@ -19,7 +17,6 @@ import RoleGuard from 'src/auth/guard/authorization.guard';
 import { Role } from 'src/schema/user.schema';
 import { JwtPayload } from 'src/types/auth.type';
 import { MessageError } from 'src/helper/messageError.enum';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { MessageSuccess } from 'src/helper/messageSuccess.enum';
 
 @ApiTags('user')
