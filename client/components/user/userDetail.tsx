@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 
 const UserDetail = ({ userDetail }: UserProps) => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [logout, setLogout] = useState(false);
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ const UserDetail = ({ userDetail }: UserProps) => {
           console.log(error);
         });
     }
-    const storageRef = ref(storage, `/users/${image.name + uuidv4()}`);
+    const storageRef = ref(storage, `/users/${image?.name + uuidv4()}`);
     await uploadBytesResumable(storageRef, image).then((snapshot) => {
       getDownloadURL(snapshot.ref).then(async (userImage) => {
         const body = { _id: user?._id, image: userImage };
