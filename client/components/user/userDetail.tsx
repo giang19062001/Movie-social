@@ -43,8 +43,8 @@ const UserDetail = ({ userDetail }: UserProps) => {
           console.log(error);
         });
     }
-    const storageRef = ref(storage, `/users/${image?.name + uuidv4()}`);
-    await uploadBytesResumable(storageRef, image).then((snapshot) => {
+    const storageRef = ref(storage, `/users/${image !== null ? image?.name : null  + uuidv4()}`);
+    await uploadBytesResumable(storageRef, image !== null ? image : null).then((snapshot) => {
       getDownloadURL(snapshot.ref).then(async (userImage) => {
         const body = { _id: user?._id, image: userImage };
         await axios.put(`/api/auth`, body).then((response) => {
